@@ -1,0 +1,158 @@
+<template>
+  <!-- 🔍 検索フォーム -->
+  <div class="custom-card">
+    <div class="search-conditions-area">
+      
+      <!-- 1行目：キーワード入力 -->
+      <div class="search-row">
+        <input
+          type="text"
+          id="keyword"
+          class="slds-input keyword-input"
+          value={keyword}
+          placeholder="地域・職種・キーワード"
+          oninput={handleKeywordChange}
+          onkeydown={handleKeyDown}
+        />
+      </div>
+
+      <!-- 2行目：条件追加 + 検索ボタン -->
+      <div class="filter-row">
+        <button class="keyword-like-button" onclick={toggleFilters}>
+          ＋ <span class="summary-text">{summaryText}</span>
+        </button>
+        <button class="slds-button slds-search-button1" onclick={handleSearch}>検索</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🔽 条件入力モーダル -->
+  <template if:true={showFilters}>
+    <section role="dialog" tabindex="-1" class="modal-backdrop" onclick={handleModalBackdropClick}>
+      <div class="modal-container" onclick={stopPropagation}>
+        <div class="modal-header">
+          <h2 class="modal-title">条件追加</h2>
+          <button class="modal-reset-button" onclick={handleClearAll}>リセット</button>
+        </div>
+
+        <div class="modal-body">
+
+          <!-- 働き方 & 休日 -->
+          <div class="filter-area holiday-wage-row">
+            <div class="work-style-block">
+              <label class="slds-form-element__label">働き方</label>
+              <div class="checkbox-row">
+                <lightning-input type="checkbox" label="正社員" value="正社員" checked={isChecked正社員} onchange={handleWorkStyleCheckboxChange}></lightning-input>
+                <lightning-input type="checkbox" label="軽作業" value="軽作業" checked={isChecked軽作業} onchange={handleWorkStyleCheckboxChange}></lightning-input>
+                <lightning-input type="checkbox" label="未経験OK" value="未経験OK" checked={isChecked未経験OK} onchange={handleWorkStyleCheckboxChange}></lightning-input>
+                <lightning-input type="checkbox" label="扶養内" value="扶養内" checked={isChecked扶養内} onchange={handleWorkStyleCheckboxChange}></lightning-input>
+                <lightning-input type="checkbox" label="シニア" value="シニア" checked={isCheckedシニア} onchange={handleWorkStyleCheckboxChange}></lightning-input>
+              </div>
+            </div>
+
+            <div class="holiday-block">
+              <label class="slds-form-element__label">希望休日</label>
+              <div class="checkbox-row">
+                <lightning-input type="checkbox" label="土" value="土" checked={isChecked土} onchange={handleHolidayCheckboxChange}></lightning-input>
+                <lightning-input type="checkbox" label="日" value="日" checked={isChecked日} onchange={handleHolidayCheckboxChange}></lightning-input>
+                <lightning-input type="checkbox" label="祝" value="祝" checked={isChecked祝} onchange={handleHolidayCheckboxChange}></lightning-input>
+              </div>
+            </div>
+          </div>
+
+          <!-- 時給スライダー -->
+          <div class="wage-slider-block">
+            <label class="slds-form-element__label">時給（{formattedMinWage}円以上）</label>
+            <input
+              type="range"
+              min="900"
+              max="2000"
+              step="50"
+              value={minWage}
+              oninput={handleMinWageChangeCustom}
+              class="custom-range"
+            />
+          </div>
+
+          <!-- 勤務時間 -->
+          <div class="modal-row time-inputs">
+            <lightning-input
+              type="time"
+              label="勤務開始時間"
+              name="startTime"
+              value={startTime}
+              step="900"
+              onchange={handleStartTimeChange}>
+            </lightning-input>
+
+            <lightning-input
+              type="time"
+              label="勤務終了時間"
+              name="endTime"
+              value={endTime}
+              step="900"
+              onchange={handleEndTimeChange}>
+            </lightning-input>
+          </div>
+        </div>
+
+        <!-- フッター：キャンセル/検索 -->
+        <div class="modal-footer-button-row">
+          <button class="slds-button slds-button_neutral cancel-button" onclick={toggleFilters}>
+            キャンセル
+          </button>
+          <button class="slds-button slds-button_brand search-button" onclick={handleSearchAndClose}>
+            検索
+          </button>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <!-- 🔍 検索結果 -->
+  <template if:true={results}>
+    <p class="slds-m-top_small">検索結果件数: {results.length}</p>
+    <template for:each={results} for:item="job">
+      <div key={job.Id} class="job-card" onclick={handleJobDetailNavigation} data-record-id={job.Id}>
+        <p class="job-title"><strong>{job.joboffer__r.Field1702__c}</strong></p>
+        <div class="job-layout">
+          <div class="job-info">
+            <div class="job-info-row">
+              <lightning-icon icon-name="utility:location" size="x-small" variant="bare"></lightning-icon>
+              <span class="job-text">{job.joboffer__r.Field1624__c}</span>
+            </div>
+            <div class="job-info-row">
+              <lightning-icon icon-name="utility:user" size="x-small" variant="bare"></lightning-icon>
+              <span class="job-text">{job.joboffer__r.BusinessContent_sub__c}</span>
+            </div>
+            <div class="job-info-row">
+              <lightning-icon icon-name="utility:money" size="x-small" variant="bare"></lightning-icon>
+              <span class="job-text">{job.joboffer__r.Field1585__c} {job.formattedSalaryMin}円 〜 {job.formattedSalaryMax}円</span>
+            </div>
+            <div class="job-info-row">
+              <lightning-icon icon-name="utility:clock" size="x-small" variant="bare"></lightning-icon>
+              <span class="job-text">{job.joboffer__r.StartTime1__c} 〜 {job.joboffer__r.EndTime1__c}</span>
+            </div>
+            <div class="job-info-row">
+              <lightning-icon icon-name="utility:event" size="x-small" variant="bare"></lightning-icon>
+              <span class="job-text">{job.joboffer__r.Field1908__c} 休み</span>
+            </div>
+          </div>
+          <div class="job-image-box">
+            <template if:true={job.eyecatch_url__c}>
+              <img src={job.eyecatch_url__c} alt="画像" class="job-image" />
+            </template>
+          </div>
+        </div>
+        <div class="job-pr">
+          <lightning-formatted-rich-text value={job.PR_point3__c}></lightning-formatted-rich-text>
+        </div>
+      </div>
+    </template>
+  </template>
+
+  <template if:true={isNoResults}>
+    <p class="slds-m-top_small">該当する求人はありません。</p>
+  </template>
+</template>

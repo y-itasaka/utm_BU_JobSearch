@@ -1,0 +1,39 @@
+<template>
+    <div class="search-container">
+        <lightning-input
+            label="キーワード検索"
+            value={keyword}
+            onchange={handleKeywordChange}
+        ></lightning-input>
+
+        <lightning-button
+            label="検索"
+            onclick={handleSearchClick}
+            disabled={isLoading}
+        ></lightning-button>
+
+        <template if:true={isLoading}>
+            <p>検索中...</p>
+        </template>
+
+        <template if:true={searchResults.length}>
+            <div class="results">
+                <template for:each={searchResults} for:item="record">
+                    <div key={record.id} class="result-card">
+                        <h3>{record.name}</h3>
+
+                        <template if:true={record.eyeCatchImage}>
+                            <img src={record.eyeCatchImage} alt="アイキャッチ画像" style="max-width: 200px;" />
+                        </template>
+
+                        <p>勤務地: {record.workLocation}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={isEmpty}>
+            <p>結果が見つかりませんでした。</p>
+        </template>
+    </div>
+</template>

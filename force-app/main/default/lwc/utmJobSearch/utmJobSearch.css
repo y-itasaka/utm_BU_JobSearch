@@ -1,0 +1,689 @@
+/* === 共通スタイル === */
+.job-card {
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+
+.job-card:hover {
+    background-color: #f4f6f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.job-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    word-break: break-word;
+}
+
+/* === モバイル（基本縦並び） === */
+.job-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+.job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.0rem;
+    order: 2;
+    overflow: hidden;
+}
+.job-info-row {
+    display: flex;
+    align-items: center;
+    gap: 1.0rem;
+    margin-bottom: 0rem;
+}
+.job-text {
+    font-size: 1.0rem;
+    line-height: 1.0;
+}
+.job-image-box {
+    width: 100%;
+    order: 1;
+}
+.job-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border: none;
+    border-radius: 4px;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.job-pr {
+    background-color: #f1f3f4;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-top: 1rem;
+    border-radius: 4px;
+}
+
+.custom-card {
+    padding: 0rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+.custom-card-title {
+    display: none;
+}
+.search-conditions-area {
+    background:none;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+.top-button-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* チェックボックス・ボタン */
+.checkbox-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+    margin-bottom: 0rem;
+}
+.checkbox-row lightning-input {
+    margin-bottom: 0rem !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+    --lwc-spacingVerticalSmall: 0rem !important;
+    --slds-c-input-spacing-block-start: 0rem !important;
+    --slds-c-input-spacing-block-end: 0rem !important;
+}
+
+.holiday-block lightning-input {
+    margin-bottom: 0rem;
+}
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.button-group lightning-button {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+.custom-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.toggle-label {
+    font-size: 1.2rem;
+}
+.custom-toggle lightning-icon {
+    --slds-c-icon-color-foreground-default: #000;
+}
+.custom-clear-text {
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+.button-group lightning-button,
+.button-group .custom-clear {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+.custom-clear {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+.clear-conditions {
+    background: none;
+    border: none;
+    color: #2a2ac4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.clear-button-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* モーダル */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: visible; /* ← 追加 */
+}
+.modal-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    overflow: visible; /* ← 追加 */
+}
+
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-reset-container {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  
+  .modal-reset-button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s ease;
+  }
+  
+  .modal-reset-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+
+.modal-footer-button-group {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+/*モダールフッターボタン調整*/
+.modal-footer-button-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 2rem;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 48px;
+  border-radius: 0.5rem;
+}
+
+.cancel-button {
+  flex: 0 0 40%;
+  min-width: 100px;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+
+.search-button {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+
+/*検索グループ*/
+
+/* ✅ ボタンを1行に綺麗に並べて、サイズも統一 */
+.top-button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+
+/* ✅ すべてのボタンに共通スタイル */
+.top-button-row button,
+.top-button-row lightning-button,
+.top-button-row .custom-clear-text {
+  flex: 1;
+  font-size: 1rem;
+  height: 48px;
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* lightning-button内部の調整（検索ボタン） */
+.top-button-row lightning-button .slds-button {
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 「条件追加」ボタン */
+.top-button-row .custom-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+/* 「すべてクリア」ボタン */
+.top-button-row .custom-clear-text {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-button-row .custom-toggle .toggle-label {
+  font-size: 1rem; /* ✅ 検索ボタンと揃える */
+}
+
+.top-button-row .custom-toggle lightning-icon {
+  display: none; /* ✅ アイコンを非表示（HTMLから削除してもOK） */
+}
+
+  
+
+  
+  
+
+
+
+
+
+
+/*勤務時間検索*/
+
+
+
+
+.modal-row.time-inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem; /* ←ここで入力同士の横の間隔調整 */
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+  }
+  
+.modal-row.time-inputs lightning-input {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 1rem !important;
+}
+  
+  /* Lightning Web Component の inputラベルの上下スペースに効く */
+.modal-row.time-inputs lightning-input .slds-form-element {
+    margin-bottom: 1rem !important;
+}
+
+
+
+.time-block-horizontal {
+    display: flex;
+    flex-direction: column; /* 縦でもOKだけど、inline-blockにしてもよい */
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+  
+  .time-block-horizontal label {
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+
+
+  .custom-label {
+    display: block;
+    margin-bottom: 0rem;
+  }
+  
+.time-block {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* スライダー */
+.wage-slider-block {
+    flex: 0 0 60%;
+    min-width: 150px;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding-left: 0rem !important;
+    margin-left:0rem !important;
+    box-sizing: border-box;
+    margin-top:2rem;
+}
+
+.wage-slider-block label {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+.custom-range {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    appearance: none;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #1a1a4b;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.custom-range::-webkit-slider-thumb::after {
+    display: none !important;
+}
+
+/* 条件エリア全体 */
+/* ✅ モバイルでも 働き方 + 休日 を横並びに保つ */
+.holiday-wage-row {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap; /* ← モバイルでも折り返しを許容（小さい画面での保険） */
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2rem;
+}
+
+/* 「働き方」「希望休日」ブロック */
+.work-style-block,
+.holiday-block {
+  flex: 1 1 0;  /* ← モバイルでも横並びに */
+  min-width: 40px;
+  max-width: 100% ;
+  box-sizing: border-box;
+}
+
+
+/* 全体 */
+body {
+    overflow-x: hidden;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+.work-style-block lightning-input {
+  margin-bottom: 0.25rem;
+}
+  
+
+
+
+/* === 新しい検索行（1行目） === */
+/* 🔍 検索行を横並びにして、inputとbuttonを隣に配置 */
+.search-row {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.keyword-input-wrapper {
+  display: flex;
+  flex: 1;
+  border: 1px solid #888;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+
+
+/* 検索ボタン */
+.keyword-search-button {
+  background: #1a1a4b;
+  color: #fff;
+  padding: 0 1.2rem;
+  border: none;
+  font-size: 1rem;
+  height: 100%;
+  white-space: nowrap;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* キーワード入力 */
+.keyword-input {
+  width: 100%;
+  height: 48px;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+/* 2行目：条件追加＋検索 */
+.filter-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  align-items: stretch; /* ← 縦揃え */
+
+}
+
+.keyword-like-button {
+  flex: 1;
+  height: 48px;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  text-align: left;
+  border: 1px solid #ccc;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* 検索ボタン：固定幅 */
+.slds-search-button1.slds-button {
+  flex: 0 0 80px !important; /* ✅ 固定幅 */
+  width: 80px !important;    /* 念押し */
+  height: 48px !important;   /* 高さ揃え */
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #1a1a4b;
+  background-color: #1a1a4b;
+  color: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 !important;     /* 中央に寄せる */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+.keyword-like-button {
+  flex: 1;
+  height: 48px;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  text-align: left;
+  border: 1px solid #ccc;
+  background: #fff;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+/* デスクトップ */
+@media screen and (min-width: 768px) {
+    .job-layout {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+    .job-info {
+        flex: 1;
+        order: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .job-image-box {
+        order: 2;
+        flex-shrink: 0;
+        width: 250px;
+        display: block;
+        aspect-ratio: auto;
+        overflow: hidden;          /* ← スクロールを防止 */
+
+    }
+    .job-image {
+        width: 100%;               /* ← コンテナにフィット */
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;       /* ← アスペクト比を保って収める */
+        display: block;
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+}
+
