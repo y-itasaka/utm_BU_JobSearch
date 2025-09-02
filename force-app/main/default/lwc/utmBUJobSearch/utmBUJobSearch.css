@@ -10,12 +10,15 @@
     max-width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15); /* 薄い影、大きめのぼかし、小さめのオフセット */
+
+
 }
 
 
 .job-card:hover {
     background-color: #f4f6f9;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15); /* 薄い影、大きめのぼかし、小さめのオフセット */
 }
 .job-title {
     font-size: 1.2rem;
@@ -45,10 +48,13 @@
     align-items: center;
     gap: 1.0rem;
     margin-bottom: 0rem;
+    
+
 }
 .job-text {
     font-size: 1.0rem;
     line-height: 1.0;
+    color: #4e5257;
 }
 .job-image-box {
     width: 100%;
@@ -234,18 +240,18 @@
   
   .modal-reset-button {
     background: none;
-    border: 1px solid #ccc;
+    border: 1px solid #dbdde1;
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
     border-radius: 6px;
     cursor: pointer;
-    color: #333;
-    background-color: #f9f9f9;
+    color: #131313;
+    background-color: #f1f3f4;
     transition: background-color 0.2s ease;
   }
   
   .modal-reset-button:hover {
-    background-color: #f0f0f0;
+    background-color: #dbdde1;
   }
   
 
@@ -358,14 +364,14 @@
   gap: 0.25rem;
   background: #fff;
   border: 1px solid #ccc;
-  color: #333;
+  color: #131313;
 }
 
 /* 「すべてクリア」ボタン */
 .top-button-row .custom-clear-text {
   background: #fff;
   border: 1px solid #ccc;
-  color: #333;
+  color: #131313;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -550,7 +556,7 @@ body {
 .keyword-input-wrapper {
   display: flex;
   flex: 1;
-  border: 1px solid #888;
+  border: 1px solid #ccc;
   border-radius: 0.5rem;
   overflow: hidden;
   box-sizing: border-box;
@@ -561,7 +567,7 @@ body {
 
 /* 検索ボタン */
 .keyword-search-button {
-  background: #1a1a4b;
+  background: #007BEF;
   color: #fff;
   padding: 0 1.2rem;
   border: none;
@@ -611,8 +617,7 @@ body {
   height: 48px !important;   /* 高さ揃え */
   font-size: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #1a1a4b;
-  background-color: #1a1a4b;
+  background-color: #007BEF;
   color: #fff;
   cursor: pointer;
   box-sizing: border-box;
@@ -620,8 +625,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
+/* 🔵 検索ボタンのホバー時アクション追加 */
+.slds-search-button1.slds-button:hover {
+  background-color: #005fcc; /* 少し濃い青に変化 */
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* 影を強調 */
+  
+}
+
+
+/* クリック時（アクティブ状態）の変化を無効にする */
+.slds-search-button1.slds-button:active {
+  background-color: #007BEF; /* 通常時と同じ色 */
+  color: #fff;               /* テキスト色も固定 */
+  box-shadow: none;          /* 押し込まれた影を消す */
+  transform: none;           /* 押し込み感の動きも無効化 */
+}
 
 
 
@@ -644,6 +666,126 @@ body {
 
 
 
+/*ソート関係*/
+.result-header {
+  display: grid;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0.5rem 0;
+  gap: 1rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap; /* ← モバイル対応 */
+
+  
+}
+.result-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.clear-all-button {
+  position: static;
+  float: none;
+  font-size: 14px;
+  color: #555;
+  background: transparent;
+  border: 1px solid #dbdde1;
+  border-radius: 4px;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+
+}
+
+/* 🔧 クリアボタンのラッパー */
+.clear-button-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.slds-m-top_small{
+  padding: 0.5rem;
+}
+
+.sort-combobox {
+  appearance: none; /* デフォルト矢印を消す */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center; /* ✅ 右からの余白を調整 */
+  background-size: 12px 8px;
+  background-color: white;
+
+
+  max-width: 180px;
+  min-width: 180px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  text-align: left;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  padding-left: 1rem; /* ← ✅ 追加！左余白を広げる */
+  
+}
+
+
+
+
+
+.load-more-button-wrapper {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.load-more-button {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+
+/*クリアボタン*/
+.keyword-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.keyword-input {
+  width: 100%;
+  padding-right: 40px; /* ✖️のスペース確保 */
+  height: 44px;
+  font-size: 1rem;
+  
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+
+
+
+
+/*Endクリアボタン*/
 
 
 
@@ -666,7 +808,7 @@ body {
     .job-image-box {
         order: 2;
         flex-shrink: 0;
-        width: 250px;
+        width: 200px;
         display: block;
         aspect-ratio: auto;
         overflow: hidden;          /* ← スクロールを防止 */
@@ -683,3 +825,57 @@ body {
     }
 }
 
+
+
+
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  padding: 0;
+  max-width: 100%;
+  flex-wrap: nowrap; /* ✅ 折り返さない */
+  box-sizing: border-box;
+}
+
+/* 左側の件数 */
+.result-count {
+  font-size: 1rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* 右側：ソート＋クリア */
+.result-actions {
+  display: flex;
+  gap: 0.5rem;
+    white-space: nowrap;
+  flex-shrink: 0;
+  
+}
+
+/* ソート */
+.sort-combobox {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+/* クリアボタン */
+.clear-all-button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: #f1f3f4;
+  color: #131313;
+  cursor: pointer;
+  height: 40px;
+  border: 1px solid #dbdde1;
+}
+
+.clear-all-button:hover {
+  background-color: #dbdde1;
+}

@@ -1,5 +1,5 @@
 @isTest
-public class utm_AdvancedSearchControllerTest {
+public class utm_BU_AdvancedSearchControllerTest {
     
     @isTest
     static void testUtmSearchJobs_withKeyword() {
@@ -21,14 +21,14 @@ public class utm_AdvancedSearchControllerTest {
         );
         insert jobOffer;
 
-        Job_Offer__c job = new Job_Offer__c(
+        JobOffer_BU__c job = new JobOffer_BU__c(
             Name = jobOffer.Field1702__c,
             joboffer__c = jobOffer.Id
         );
         insert job;
 
         Test.startTest();
-        List<Job_Offer__c> results = utm_AdvancedSearchController.utm_searchJobs(
+        List<JobOffer_BU__c> results = utm_BU_AdvancedSearchController.utm_BU_searchJobs(
             'テスト求人',
             new List<String>(),             // ✅ jobTypes ←これを追加！
             new List<String>{'日'},         // holidays
@@ -66,14 +66,14 @@ public class utm_AdvancedSearchControllerTest {
         );
         insert jobOffer;
 
-        Job_Offer__c job = new Job_Offer__c(
+        JobOffer_BU__c job = new JobOffer_BU__c(
             Name = 'コンサルタント求人',
             joboffer__c = jobOffer.Id
         );
         insert job;
 
         Test.startTest();
-        List<Job_Offer__c> results = utm_AdvancedSearchController.utm_searchJobs(
+        List<JobOffer_BU__c> results = utm_BU_AdvancedSearchController.utm_BU_searchJobs(
             'テスト求人',
             new List<String>(),             // ✅ jobTypes ←これを追加！
             new List<String>{'日'},         // holidays
@@ -111,14 +111,14 @@ public class utm_AdvancedSearchControllerTest {
         );
         insert jobOffer;
 
-        Job_Offer__c job = new Job_Offer__c(
+        JobOffer_BU__c job = new JobOffer_BU__c(
             Name = '違う求人',
             joboffer__c = jobOffer.Id
         );
         insert job;
 
         Test.startTest();
-        List<Job_Offer__c> results = utm_AdvancedSearchController.utm_searchJobs(
+        List<JobOffer_BU__c> results = utm_BU_AdvancedSearchController.utm_BU_searchJobs(
             'ABY',
             new List<String>(),             // ✅ jobTypes ←これを追加！
             new List<String>{'A'},         // holidays
@@ -150,11 +150,11 @@ public class utm_AdvancedSearchControllerTest {
             Field1623__c=false
         );
         insert jobOffer;
-        Job_Offer__c job = new Job_Offer__c(Name = '時間テスト', joboffer__c = jobOffer.Id);
+        JobOffer_BU__c job = new JobOffer_BU__c(Name = '時間テスト', joboffer__c = jobOffer.Id);
         insert job;
 
         Test.startTest();
-        List<Job_Offer__c> results = utm_AdvancedSearchController.utm_searchJobs(
+        List<JobOffer_BU__c> results = utm_BU_AdvancedSearchController.utm_BU_searchJobs(
             '時間テスト',
             new List<String>{'営業'},
             new List<String>(), 
