@@ -20,12 +20,27 @@
         </template>
       </div>  
       </div>
+      
       <!-- 2行目：条件追加 + 検索ボタン -->
       <div class="filter-row">
-        <button class="keyword-like-button" onclick={toggleFilters}>
+        <button class="keyword-like-button" 
+        data-has-conditions={hasConditionsAttribute} 
+        onclick={toggleFilters}>
           ＋ <span class="summary-text">{summaryText}</span>
         </button>
         <button class="slds-button slds-search-button1" onclick={handleSearch}>検索</button>
+      </div>
+
+      <!-- 3行目：体験応募チェックボックス -->
+      <div class="experience-checkbox-row">
+        <lightning-input 
+          type="checkbox" 
+          label="体験応募" 
+          value="体験応募" 
+          checked={isCheckedExperience}
+          onchange={handleExperienceCheckboxChange}
+          class="experience-checkbox">
+        </lightning-input>
       </div>
 
     </div>
@@ -144,7 +159,7 @@
         </template>
     
         <!-- ✅ ここは無条件表示 -->
-        <button class="clear-all-button" onclick={closeFilters}>閉じる</button>
+        <button class="clear-all-button" onclick={handleClearAll}>閉じる</button>
       </div>
     </div>
 
@@ -162,6 +177,16 @@
         <p class="job-title"><strong>{job.joboffer__r.Field1702__c}</strong></p>
         <div class="job-layout">
           <div class="job-info">
+            <!-- 会社名 -->
+            <div class="job-info-row">
+              <!-- 会社アイコン -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="16" height="16" style="fill:#7d8085;">
+                <path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zm112 16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/>
+              </svg>
+              <span class="job-text">{job.Destination__c}</span>
+            </div>
+
+            <!-- 住所 -->
             <div class="job-info-row">
               <!-- 住所アイコン -->
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="16" height="16" style="fill:#7d8085;">
@@ -170,12 +195,15 @@
               <span class="job-text">{job.joboffer__r.Field1624__c}</span>
             </div>
           
+            <!-- 職種（雇用形態付き） -->
             <div class="job-info-row">
               <!-- 職種アイコン -->
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" style="fill:#7d8085;">
                 <path d="M184 48l144 0c4.4 0 8 3.6 8 8l0 40L176 96l0-40c0-4.4 3.6-8 8-8zm-56 8l0 40L64 96C28.7 96 0 124.7 0 160l0 96 192 0 128 0 192 0 0-96c0-35.3-28.7-64-64-64l-64 0 0-40c0-30.9-25.1-56-56-56L184 0c-30.9 0-56 25.1-56 56zM512 288l-192 0 0 32c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-32L0 288 0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-128z"/>
               </svg>
-              <span class="job-text">{job.joboffer__r.BusinessContent_sub__c}</span>
+              <span class="job-text">
+                {job.joboffer__r.BusinessContent_sub__c}<template if:true={job.EmploymentStatus__c}><span class="employment-type-text">｜{job.EmploymentStatus__c}</span></template>
+              </span>
             </div>
           
             <div class="job-info-row">
@@ -191,7 +219,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" style="fill:#7d8085;">
                 <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/>
               </svg>
-              <span class="job-text">{job.formattedStartTime} 〜 {job.formattedEndTime} （ {job.formattedHoliday} 休み ）</span>
+              <span class="job-text">{job.formattedTimeDisplay}</span>
             </div>
           </div>
           

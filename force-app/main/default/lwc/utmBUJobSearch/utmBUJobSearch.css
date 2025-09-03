@@ -598,6 +598,8 @@ body {
 
 }
 
+
+/* 2行目のフィルタボタンのテキストカラー */
 .keyword-like-button {
   flex: 1;
   height: 48px;
@@ -608,6 +610,52 @@ body {
   border: 1px solid #ccc;
   background: #fff;
   box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+}
+
+/* 条件が選択されている時のテキストカラー */
+.keyword-like-button.has-conditions {
+  color: #2D3A59 !important; /* 条件選択時の濃い色 */
+}
+
+/* HTMLのdata属性を使用した条件判定の優先度を上げる */
+.filter-row .keyword-like-button[data-has-conditions="true"] {
+  color: #2D3A59 !important;
+}
+
+.filter-row .keyword-like-button[data-has-conditions="false"],
+.filter-row .keyword-like-button:not([data-has-conditions]) {
+  color: #76716B !important;
+}
+
+/* さらに優先度を上げるために、より具体的なセレクタを追加 */
+.filter-row .keyword-like-button[data-has-conditions="true"] .summary-text {
+  color: #2D3A59 !important;
+}
+
+.filter-row .keyword-like-button[data-has-conditions="false"] .summary-text,
+.filter-row .keyword-like-button:not([data-has-conditions]) .summary-text {
+  color: #76716B !important;
+}
+
+/* HTMLのdata属性を使用した条件判定 */
+.keyword-like-button[data-has-conditions="true"] {
+  color: #2D3A59 !important;
+}
+
+.keyword-like-button[data-has-conditions="false"],
+.keyword-like-button:not([data-has-conditions]) {
+  color: #76716B !important;
+}
+
+
+
+/* summary-textクラスにも同じ色を適用 */
+.summary-text {
+  color: inherit !important;
 }
 
 /* 検索ボタン：固定幅 */
@@ -648,20 +696,7 @@ body {
 
 
 
-.keyword-like-button {
-  flex: 1;
-  height: 48px;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  padding: 0 1rem;
-  text-align: left;
-  border: 1px solid #ccc;
-  background: #fff;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+
 
 
 
@@ -879,3 +914,51 @@ body {
 .clear-all-button:hover {
   background-color: #dbdde1;
 }
+
+
+
+
+/* === 3行目：体験応募チェックボックス === */
+.experience-checkbox-row {
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 0.75rem !important;
+  padding: 0.5rem 0 !important;
+  gap: 0.5rem !important;
+}
+
+.experience-checkbox {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* lightning-inputコンポーネント内のスタイル調整 */
+.experience-checkbox-row lightning-input {
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  --lwc-spacingVerticalSmall: 0rem !important;
+  --slds-c-input-spacing-block-start: 0rem !important;
+  --slds-c-input-spacing-block-end: 0rem !important;
+}
+
+/* チェックボックスのラベルサイズ調整 */
+.experience-checkbox-row lightning-input .slds-form-element__label {
+  font-size: 1rem !important;
+  font-weight: normal !important;
+  color: #333 !important;
+}
+
+/* モバイル対応 */
+@media screen and (max-width: 768px) {
+  .experience-checkbox-row {
+    justify-content: flex-start !important;
+    padding-left: 0.5rem !important;
+  }
+}
+
+
+
+
+
+

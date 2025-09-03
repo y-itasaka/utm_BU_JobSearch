@@ -10,7 +10,8 @@ public with sharing class utm_BU_AdvancedSearchController {
         Decimal minWage,
         Decimal maxWage,
         String startTimeStr,
-        String endTimeStr
+        String endTimeStr,
+        Boolean experienceApplication  // 🔥 体験応募パラメータ追加
     ) {
         String query = 'SELECT Id, Name, PRPR_point3__c, CompanyInformation__c, Characteristics__c, Welfare__c, ' +
                        'WorkLocation__c, EmploymentStatus__c, Salary__c, QualificationRequirements__c, Destination__c, ' +
@@ -18,7 +19,8 @@ public with sharing class utm_BU_AdvancedSearchController {
                        'joboffer__r.Field1702__c, joboffer__r.Field1624__c, joboffer__r.BusinessContent__c, ' +
                        'joboffer__r.BusinessContent_sub__c, joboffer__r.Field1619__c, joboffer__r.Field1734__c, ' +
                        'joboffer__r.Field1660__c, joboffer__r.Field1663__c, joboffer__r.Field1908__c, ' +
-                       'joboffer__r.Salary01__c, joboffer__r.Field1591__c, joboffer__r.Field1585__c, joboffer__r.Field1608__c, joboffer__r.SeishainTouyou_Base__c ' +
+                       'joboffer__r.Salary01__c, joboffer__r.Field1591__c, joboffer__r.Field1585__c, joboffer__r.Field1608__c, ' +
+                       'joboffer__r.SeishainTouyou_Base__c, joboffer__r.Field1864__c ' +  // 🔥 体験応募フィールド追加
                        'FROM JobOffer_BU__c ';
 
         List<String> conditions = new List<String>();
@@ -67,10 +69,6 @@ public with sharing class utm_BU_AdvancedSearchController {
                 conditions.add(String.join(andConditions, ' AND '));
             }
         }
-        
-
-
-
 
         // 3. 休日
         if (holidays != null && !holidays.isEmpty()) {
@@ -104,18 +102,23 @@ public with sharing class utm_BU_AdvancedSearchController {
             conditions.add('joboffer__r.Field1619__c <= :maxWage');
         }
 
-        // 6. WHERE句をまとめて追加
+        // 🔥 6. 体験応募フィルタ追加
+        if (experienceApplication != null && experienceApplication == true) {
+            conditions.add('joboffer__r.Field1864__c = \'体験応募\'');
+        }
+
+        // 7. WHERE句をまとめて追加
         if (!conditions.isEmpty()) {
             query += ' WHERE ' + String.join(conditions, ' AND ');
         }
 
-        // 7. LIMIT
+        // 8. LIMIT
         query += ' LIMIT 200';
 
-        // 8. 実行
+        // 9. 実行
         List<JobOffer_BU__c> offers = Database.query(query);
 
-        // 9. 勤務時間フィルター
+        // 10. 勤務時間フィルター
         if (String.isNotBlank(startTimeStr) || String.isNotBlank(endTimeStr)) {
             Time startTime = null;
             Time endTime = null;
@@ -173,18 +176,27 @@ public with sharing class utm_BU_AdvancedSearchController {
         for (String word : words) {
             String escaped = String.escapeSingleQuotes(word);
             List<String> sub = new List<String>();
+            
+            // JobOffer_BU__cオブジェクトのフィールド
             for (String f : new List<String>{
                 'Name', 'PRPR_point3__c', 'CompanyInformation__c', 'Characteristics__c',
-                'Welfare__c',  'WorkLocation__c', 'EmploymentStatus__c',
+                'Welfare__c', 'WorkLocation__c', 'EmploymentStatus__c',
                 'Salary__c', 'QualificationRequirements__c', 'Destination__c',
                 'RecruitmentReception__c', 'Number__c'
             }) {
                 sub.add(f + ' LIKE \'%' + escaped + '%\'');
             }
+            
+            // joboffer__rの関連フィールド
+            for (String f : new List<String>{
+                'joboffer__r.BusinessContent__c',
+                'joboffer__r.BusinessContent_sub__c'
+            }) {
+                sub.add(f + ' LIKE \'%' + escaped + '%\'');
+            }
+            
             orConditions.add('(' + String.join(sub, ' OR ') + ')');
         }
         return String.join(orConditions, ' OR ');
     }
-    
-    
 }
