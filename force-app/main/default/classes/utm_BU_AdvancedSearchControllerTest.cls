@@ -46,6 +46,7 @@ public class utm_BU_AdvancedSearchControllerTest {
         System.assertEquals(1, results.size());
     }
 
+    
     @isTest
     static void testUtmSearchJobs_withHolidaysOnly() {
         Account account = new Account(Name = 'テストアカウント');
