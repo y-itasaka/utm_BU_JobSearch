@@ -113,7 +113,7 @@ public with sharing class utm_BU_AdvancedSearchController {
         }
 
         // 8. LIMIT
-        query += ' LIMIT 200';
+        query += ' LIMIT 100';
 
         // 9. 実行
         List<JobOffer_BU__c> offers = Database.query(query);

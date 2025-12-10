@@ -1,647 +1,224 @@
 /* === 共通スタイル === */
 .job-card {
-    border: none;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    background-color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15); /* 薄い影、大きめのぼかし、小さめのオフセット */
-
-
+  border: none !important;
+  padding: 1rem !important;
+  margin-bottom: 1.5rem !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15) !important;
 }
-
 
 .job-card:hover {
-    background-color: #f4f6f9;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15); /* 薄い影、大きめのぼかし、小さめのオフセット */
+  background-color: #f4f6f9 !important;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15) !important;
 }
+
 .job-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    word-break: break-word;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
+  word-break: break-word !important;
 }
 
-/* === モバイル（基本縦並び） === */
-.job-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-}
-.job-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1.0rem;
-    order: 2;
-    overflow: hidden;
-}
-.job-info-row {
-    display: flex;
-    align-items: center;
-    gap: 1.0rem;
-    margin-bottom: 0rem;
-    
-
-}
-.job-text {
-    font-size: 1.0rem;
-    line-height: 1.0;
-    color: #4e5257;
-}
-.job-image-box {
-    width: 100%;
-    order: 1;
-}
-.job-image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    border: none;
-    border-radius: 4px;
-    max-width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-}
+/* === PRポイント === */
 .job-pr {
-    background-color: #f1f3f4;
-    padding: 0.75rem;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin-top: 1rem;
-    border-radius: 4px;
+  background-color: #f1f3f4 !important;
+  padding: 0.75rem !important;
+  font-size: 0.95rem !important;
+  line-height: 1.4 !important;
+  margin-top: 0 !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
 }
 
+.job-pr lightning-formatted-rich-text {
+  width: 100% !important;
+  display: block !important;
+}
+
+/* === モバイルレイアウト（基本・768px未満） === */
+.job-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+.job-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.0rem !important;
+  order: 2 !important;
+  overflow: hidden !important;
+}
+
+.job-info-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.0rem !important;
+  margin-bottom: 0rem !important;
+}
+
+/* === 勤務時間とPRボックス間の余白統一 === */
+.job-info-row:last-child {
+  margin-bottom: 1rem !important; /* 最後のinfo-row（勤務時間）に固定余白 */
+}
+
+.job-text {
+  font-size: 1.0rem !important;
+  line-height: 1.0 !important;
+  color: #4e5257 !important;
+}
+
+.job-image-box {
+  width: 100% !important;
+  height: 200px !important;
+  order: 1 !important;
+  overflow: hidden !important;
+  border-radius: 4px !important;
+  
+}
+
+.job-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
+  
+}
+
+/* === デスクトップレイアウト（768px以上） === */
+@media screen and (min-width: 768px) {
+  .job-layout {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      gap: 2rem !important;
+  }
+  
+  .job-info {
+      flex: 1 !important;
+      order: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+  }
+  
+  .job-image-box {
+      order: 2 !important;
+      flex-shrink: 0 !important;
+      width: 200px !important;
+      height: 120px !important;
+      align-self: flex-start !important;
+      display: block !important;
+      overflow: hidden !important;
+      border-radius: 4px !important;
+      
+  }
+  
+  .job-image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      box-sizing: border-box !important;
+      border-radius: 4px !important;
+  }
+}
+
+/* === その他既存のスタイル（検索フォームなど）は省略 === */
+
+/* 検索関連スタイル */
 .custom-card {
-    padding: 0rem;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    max-width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
+  padding: 0rem !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
 }
+
 .custom-card-title {
-    display: none;
+  display: none !important;
 }
+
 .search-conditions-area {
-    background:none;
-    padding: 0.5rem;
-    border-radius: 1rem;
-}
-.top-button-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  background: none !important;
+  padding: 0.5rem !important;
+  border-radius: 1rem !important;
 }
 
-/* チェックボックス・ボタン */
-.checkbox-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0rem;
-    margin-bottom: 0rem;
-}
-.checkbox-row lightning-input {
-    margin-bottom: 0rem !important;
-    padding: 0 !important;
-    line-height: 1.2 !important;
-    --lwc-spacingVerticalSmall: 0rem !important;
-    --slds-c-input-spacing-block-start: 0rem !important;
-    --slds-c-input-spacing-block-end: 0rem !important;
-}
-
-.holiday-block lightning-input {
-    margin-bottom: 0rem;
-}
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: center;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-.button-group lightning-button {
-    white-space: nowrap;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    box-sizing: border-box;
-    flex-shrink: 0;
-}
-.custom-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.2rem;
-    border: 1px solid #ccc;
-    padding: 0.5rem 1rem;
-    background: #fff;
-    border-radius: 8px;
-    cursor: pointer;
-}
-.toggle-label {
-    font-size: 1.2rem;
-}
-.custom-toggle lightning-icon {
-    --slds-c-icon-color-foreground-default: #000;
-}
-.custom-clear-text {
-    font-size: 0.9rem;
-    text-align: center;
-    cursor: pointer;
-}
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
-.button-group lightning-button,
-.button-group .custom-clear {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    box-sizing: border-box;
-    flex-shrink: 0;
-}
-.custom-clear {
-    background: none;
-    border: none;
-    color: #000;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    cursor: pointer;
-    text-decoration: none;
-}
-.clear-conditions {
-    background: none;
-    border: none;
-    color: #2a2ac4;
-    font-size: 0.95rem;
-    padding: 0.5rem 0;
-    text-decoration: underline;
-    cursor: pointer;
-}
-.clear-button-icon {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-/* モーダル */
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    overflow: visible; /* ← 追加 */
-}
-.modal-container {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    overflow: visible; /* ← 追加 */
-}
-
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .modal-reset-container {
-    flex-shrink: 0;
-    margin-left: auto;
-  }
-  
-  .modal-reset-button {
-    background: none;
-    border: 1px solid #dbdde1;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-    border-radius: 6px;
-    cursor: pointer;
-    color: #131313;
-    background-color: #f1f3f4;
-    transition: background-color 0.2s ease;
-  }
-  
-  .modal-reset-button:hover {
-    background-color: #dbdde1;
-  }
-  
-
-.modal-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-.close-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.modal-label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-}
-
-
-.modal-footer-button-group {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    margin-top: 1.5rem;
-    justify-content: space-between;
-}
-
-
-
-/*モダールフッターボタン調整*/
-.modal-footer-button-row {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-  margin-top: 2rem;
-  justify-content: space-between;
-  align-items: stretch;
-  height: 48px;
-  border-radius: 0.5rem;
-}
-
-.cancel-button {
-  flex: 0 0 40%;
-  min-width: 100px;
-  box-sizing: border-box;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  text-align: center;
-  border-radius: 0.5rem;
-}
-
-.search-button {
-  flex: 1;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  text-align: center;
-  border-radius: 0.5rem;
-}
-
-/*検索グループ*/
-
-/* ✅ ボタンを1行に綺麗に並べて、サイズも統一 */
-.top-button-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
-  width: 100%;
-  margin-top: 1rem;
-  box-sizing: border-box;
-}
-
-/* ✅ すべてのボタンに共通スタイル */
-.top-button-row button,
-.top-button-row lightning-button,
-.top-button-row .custom-clear-text {
-  flex: 1;
-  font-size: 1rem;
-  height: 48px;
-  padding: 0.5rem;
-  border-radius: 6px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  text-align: center;
-}
-
-/* lightning-button内部の調整（検索ボタン） */
-.top-button-row lightning-button .slds-button {
-  width: 100%;
-  height: 100%;
-  font-size: 1rem;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* 「条件追加」ボタン */
-.top-button-row .custom-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #131313;
-}
-
-/* 「すべてクリア」ボタン */
-.top-button-row .custom-clear-text {
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #131313;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.top-button-row .custom-toggle .toggle-label {
-  font-size: 1rem; /* ✅ 検索ボタンと揃える */
-}
-
-.top-button-row .custom-toggle lightning-icon {
-  display: none; /* ✅ アイコンを非表示（HTMLから削除してもOK） */
-}
-
-  
-
-  
-  
-
-
-
-
-
-
-/*勤務時間検索*/
-
-
-
-
-.modal-row.time-inputs {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem; /* ←ここで入力同士の横の間隔調整 */
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 2rem;
-  }
-  
-.modal-row.time-inputs lightning-input {
-    flex: 1;
-    min-width: 0;
-    margin-bottom: 1rem !important;
-}
-  
-  /* Lightning Web Component の inputラベルの上下スペースに効く */
-.modal-row.time-inputs lightning-input .slds-form-element {
-    margin-bottom: 1rem !important;
-}
-
-
-
-.time-block-horizontal {
-    display: flex;
-    flex-direction: column; /* 縦でもOKだけど、inline-blockにしてもよい */
-    flex: 1;
-    min-width: 0;
-    margin: 0;
-  }
-  
-  .time-block-horizontal label {
-    margin-bottom: 0.2rem;
-    font-size: 0.9rem;
-    font-weight: bold;
-  }
-
-
-
-  .custom-label {
-    display: block;
-    margin-bottom: 0rem;
-  }
-  
-.time-block {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* スライダー */
-.wage-slider-block {
-    flex: 0 0 60%;
-    min-width: 150px;
-    max-width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding-left: 0rem !important;
-    margin-left:0rem !important;
-    box-sizing: border-box;
-    margin-top:2rem;
-}
-
-.wage-slider-block label {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-}
-.custom-range {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    appearance: none;
-    height: 6px;
-    background: #e0e0e0;
-    border-radius: 3px;
-    outline: none;
-}
-.custom-range::-webkit-slider-thumb {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #1a1a4b;
-    border-radius: 50%;
-    cursor: pointer;
-}
-.custom-range::-webkit-slider-thumb::after {
-    display: none !important;
-}
-
-/* 条件エリア全体 */
-/* ✅ モバイルでも 働き方 + 休日 を横並びに保つ */
-.holiday-wage-row {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  align-items: flex-start;
-  flex-wrap: wrap; /* ← モバイルでも折り返しを許容（小さい画面での保険） */
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 2rem;
-}
-
-/* 「働き方」「希望休日」ブロック */
-.work-style-block,
-.holiday-block {
-  flex: 1 1 0;  /* ← モバイルでも横並びに */
-  min-width: 40px;
-  max-width: 100% ;
-  box-sizing: border-box;
-}
-
-
-/* 全体 */
-body {
-    overflow-x: hidden;
-    width: 100vw;
-    box-sizing: border-box;
-}
-
-
-
-
-
-
-.work-style-block lightning-input {
-  margin-bottom: 0.25rem;
-}
-  
-
-
-
-/* === 新しい検索行（1行目） === */
-/* 🔍 検索行を横並びにして、inputとbuttonを隣に配置 */
+/* === 検索行レイアウト === */
 .search-row {
-  display: flex;
-  width: 100%;
-  margin-top: 0.5rem;
+  display: flex !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
 }
 
-.keyword-input-wrapper {
-  display: flex;
-  flex: 1;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-sizing: border-box;
-  height: 48px;
+.keyword-wrapper {
+  position: relative !important;
+  width: 100% !important;
 }
 
-
-
-/* 検索ボタン */
-.keyword-search-button {
-  background: #007BEF;
-  color: #fff;
-  padding: 0 1.2rem;
-  border: none;
-  font-size: 1rem;
-  height: 100%;
-  white-space: nowrap;
-  border-radius: 0;
-  cursor: pointer;
-}
-
-/* キーワード入力 */
 .keyword-input {
-  width: 100%;
-  height: 48px;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
+  width: 100% !important;
+  padding-right: 40px !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  border-radius: 0.5rem !important;
+  padding-left: 1rem !important;
+  box-sizing: border-box !important;
+  border: 1px solid #ccc !important;
 }
 
-/* 2行目：条件追加＋検索 */
+.clear-button {
+  position: absolute !important;
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 1.2rem !important;
+  cursor: pointer !important;
+  color: #999 !important;
+  line-height: 1 !important;
+}
+
 .filter-row {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-  align-items: stretch; /* ← 縦揃え */
-
+  display: flex !important;
+  gap: 0.5rem !important;
+  margin-top: 0.75rem !important;
+  align-items: stretch !important;
 }
 
-
-/* 2行目のフィルタボタンのテキストカラー */
 .keyword-like-button {
-  flex: 1;
-  height: 48px;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  padding: 0 1rem;
-  text-align: left;
-  border: 1px solid #ccc;
-  background: #fff;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  
+  flex: 1 !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  border-radius: 0.5rem !important;
+  padding: 0 1rem !important;
+  text-align: left !important;
+  border: 1px solid #ccc !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
 
-/* 条件が選択されている時のテキストカラー */
-.keyword-like-button.has-conditions {
-  color: #2D3A59 !important; /* 条件選択時の濃い色 */
-}
-
-/* HTMLのdata属性を使用した条件判定の優先度を上げる */
-.filter-row .keyword-like-button[data-has-conditions="true"] {
-  color: #2D3A59 !important;
-}
-
-.filter-row .keyword-like-button[data-has-conditions="false"],
-.filter-row .keyword-like-button:not([data-has-conditions]) {
-  color: #76716B !important;
-}
-
-/* さらに優先度を上げるために、より具体的なセレクタを追加 */
-.filter-row .keyword-like-button[data-has-conditions="true"] .summary-text {
-  color: #2D3A59 !important;
-}
-
-.filter-row .keyword-like-button[data-has-conditions="false"] .summary-text,
-.filter-row .keyword-like-button:not([data-has-conditions]) .summary-text {
-  color: #76716B !important;
-}
-
-/* HTMLのdata属性を使用した条件判定 */
 .keyword-like-button[data-has-conditions="true"] {
   color: #2D3A59 !important;
 }
@@ -651,274 +228,29 @@ body {
   color: #76716B !important;
 }
 
-
-
-/* summary-textクラスにも同じ色を適用 */
-.summary-text {
-  color: inherit !important;
-}
-
-/* 検索ボタン：固定幅 */
 .slds-search-button1.slds-button {
-  flex: 0 0 80px !important; /* ✅ 固定幅 */
-  width: 80px !important;    /* 念押し */
-  height: 48px !important;   /* 高さ揃え */
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  background-color: #007BEF;
-  color: #fff;
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 !important;     /* 中央に寄せる */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
+  flex: 0 0 80px !important;
+  width: 80px !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  border-radius: 0.5rem !important;
+  background-color: #2463EB !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* 🔵 検索ボタンのホバー時アクション追加 */
 .slds-search-button1.slds-button:hover {
-  background-color: #005fcc; /* 少し濃い青に変化 */
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* 影を強調 */
-  
+  background-color: #005fcc !important;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
-
-/* クリック時（アクティブ状態）の変化を無効にする */
-.slds-search-button1.slds-button:active {
-  background-color: #007BEF; /* 通常時と同じ色 */
-  color: #fff;               /* テキスト色も固定 */
-  box-shadow: none;          /* 押し込まれた影を消す */
-  transform: none;           /* 押し込み感の動きも無効化 */
-}
-
-
-
-
-
-
-
-
-
-/*ソート関係*/
-.result-header {
-  display: grid;
-  justify-content: space-between;
-  align-items: baseline;
-  margin: 0.5rem 0;
-  gap: 1rem;
-  font-size: 0.9rem;
-  flex-wrap: wrap; /* ← モバイル対応 */
-
-  
-}
-.result-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.clear-all-button {
-  position: static;
-  float: none;
-  font-size: 14px;
-  color: #555;
-  background: transparent;
-  border: 1px solid #dbdde1;
-  border-radius: 4px;
-  padding: 0.2rem 0.7rem;
-  cursor: pointer;
-  white-space: nowrap;
-
-}
-
-/* 🔧 クリアボタンのラッパー */
-.clear-button-container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.slds-m-top_small{
-  padding: 0.5rem;
-}
-
-.sort-combobox {
-  appearance: none; /* デフォルト矢印を消す */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center; /* ✅ 右からの余白を調整 */
-  background-size: 12px 8px;
-  background-color: white;
-
-
-  max-width: 180px;
-  min-width: 180px;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  text-align: left;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-  padding-left: 1rem; /* ← ✅ 追加！左余白を広げる */
-  
-}
-
-
-
-
-
-.load-more-button-wrapper {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.load-more-button {
-  background-color: #f4f4f4;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-
-
-/*クリアボタン*/
-.keyword-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.keyword-input {
-  width: 100%;
-  padding-right: 40px; /* ✖️のスペース確保 */
-  height: 44px;
-  font-size: 1rem;
-  
-}
-
-.clear-button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #999;
-  line-height: 1;
-}
-
-
-
-
-
-/*Endクリアボタン*/
-
-
-
-
-/* デスクトップ */
-@media screen and (min-width: 768px) {
-    .job-layout {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 2rem;
-    }
-    .job-info {
-        flex: 1;
-        order: 1;
-        display: flex;
-        flex-direction: column;
-    }
-    .job-image-box {
-        order: 2;
-        flex-shrink: 0;
-        width: 200px;
-        display: block;
-        aspect-ratio: auto;
-        overflow: hidden;          /* ← スクロールを防止 */
-
-    }
-    .job-image {
-        width: 100%;               /* ← コンテナにフィット */
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;       /* ← アスペクト比を保って収める */
-        display: block;
-        box-sizing: border-box;
-        border-radius: 4px;
-    }
-}
-
-
-
-
-
-.result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  margin: 0.5rem 0;
-  padding: 0;
-  max-width: 100%;
-  flex-wrap: nowrap; /* ✅ 折り返さない */
-  box-sizing: border-box;
-}
-
-/* 左側の件数 */
-.result-count {
-  font-size: 1rem;
-  color: #333;
-  white-space: nowrap;
-}
-
-/* 右側：ソート＋クリア */
-.result-actions {
-  display: flex;
-  gap: 0.5rem;
-    white-space: nowrap;
-  flex-shrink: 0;
-  
-}
-
-/* ソート */
-.sort-combobox {
-  min-width: 150px;
-  max-width: 150px;
-}
-
-/* クリアボタン */
-.clear-all-button {
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
-  border: none;
-  border-radius: 6px;
-  background: #f1f3f4;
-  color: #131313;
-  cursor: pointer;
-  height: 40px;
-  border: 1px solid #dbdde1;
-}
-
-.clear-all-button:hover {
-  background-color: #dbdde1;
-}
-
-
-
-
-/* === 3行目：体験応募チェックボックス === */
+/* === 体験応募チェックボックス === */
 .experience-checkbox-row {
   display: flex !important;
   align-items: center !important;
@@ -932,7 +264,6 @@ body {
   padding: 0 !important;
 }
 
-/* lightning-inputコンポーネント内のスタイル調整 */
 .experience-checkbox-row lightning-input {
   margin-bottom: 0 !important;
   padding: 0 !important;
@@ -942,23 +273,359 @@ body {
   --slds-c-input-spacing-block-end: 0rem !important;
 }
 
-/* チェックボックスのラベルサイズ調整 */
 .experience-checkbox-row lightning-input .slds-form-element__label {
   font-size: 1rem !important;
   font-weight: normal !important;
   color: #333 !important;
 }
 
-/* モバイル対応 */
 @media screen and (max-width: 768px) {
   .experience-checkbox-row {
-    justify-content: flex-start !important;
-    padding-left: 0.5rem !important;
+      justify-content: flex-start !important;
+      padding-left: 0.5rem !important;
   }
+}
+
+/* === 検索結果ヘッダー === */
+.result-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  gap: 1rem !important;
+  margin: 0.5rem 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  flex-wrap: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+.result-count {
+  font-size: 1rem !important;
+  color: #333 !important;
+  white-space: nowrap !important;
+}
+
+.result-actions {
+  display: flex !important;
+  gap: 0.5rem !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+.sort-combobox {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background: none !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  background-size: 12px 8px !important;
+  background-color: white !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem !important;
+  text-align: left !important;
+  border: 1px solid #ccc !important;
+  font-size: 0.9rem !important;
+  padding-left: 1rem !important;
+}
+
+.clear-all-button {
+  padding: 0.4rem 0.8rem !important;
+  font-size: 0.8rem !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background: #f1f3f4 !important;
+  color: #131313 !important;
+  cursor: pointer !important;
+  height: 40px !important;
+  border: 1px solid #dbdde1 !important;
+}
+
+.clear-all-button:hover {
+  background-color: #dbdde1 !important;
+}
+
+.load-more-button-wrapper {
+  text-align: center !important;
+  margin-top: 1rem !important;
+}
+
+.load-more-button {
+  background-color: #f4f4f4 !important;
+  border: 1px solid #ccc !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem 1.5rem !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+}
+
+
+
+/* === モーダル関連CSS === */
+
+/* モーダル背景 */
+.modal-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0,0,0,0.3) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 9999 !important;
+  overflow: visible !important;
+}
+
+/* モーダルコンテナ */
+.modal-container {
+  background: #fff !important;
+  padding: 2rem !important;
+  border-radius: 1rem !important;
+  width: 90% !important;
+  max-width: 500px !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+  overflow: visible !important;
+}
+
+/* モーダルヘッダー */
+.modal-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.modal-title {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+}
+
+.modal-reset-button {
+  background: none !important;
+  border: 1px solid #dbdde1 !important;
+  padding: 0.4rem 0.8rem !important;
+  font-size: 0.85rem !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  color: #131313 !important;
+  background-color: #f1f3f4 !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.modal-reset-button:hover {
+  background-color: #dbdde1 !important;
+}
+
+/* モーダルボディ */
+.modal-body {
+  margin: 1.5rem 0 !important;
+}
+
+/* チェックボックス行 */
+.checkbox-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+
+.checkbox-row lightning-input {
+  margin-bottom: 0rem !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  --lwc-spacingVerticalSmall: 0rem !important;
+  --slds-c-input-spacing-block-start: 0rem !important;
+  --slds-c-input-spacing-block-end: 0rem !important;
+}
+
+/* 働き方・休日の横並び */
+.holiday-wage-row {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 2rem !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 2rem !important;
+}
+
+.work-style-block,
+.holiday-block {
+  flex: 1 1 0 !important;
+  min-width: 40px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.work-style-block lightning-input {
+  margin-bottom: 0.25rem !important;
+}
+
+.holiday-block lightning-input {
+  margin-bottom: 0rem !important;
+}
+
+/* 時給スライダー */
+.wage-slider-block {
+  flex: 0 0 60% !important;
+  min-width: 150px !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  position: relative !important;
+  padding-left: 0rem !important;
+  margin-left: 0rem !important;
+  box-sizing: border-box !important;
+  margin-top: 2rem !important;
+  padding: 10px 0 !important; /* 上下にpadding追加でthumbの余白確保 */
+}
+
+.wage-slider-block label {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.custom-range {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  appearance: none !important;
+  height: 6px !important;
+  background: #e0e0e0 !important;
+  border-radius: 3px !important;
+  outline: none !important;
+  margin: 10px 0 !important; /* スライダー自体にも上下margin追加 */
+}
+
+.custom-range::-webkit-slider-thumb {
+  appearance: none !important;
+  width: 20px !important;
+  height: 20px !important;
+  background: #1a1a4b !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  margin-top: 0px !important; /* thumbの位置調整 */
+
+}
+
+.custom-range::-webkit-slider-thumb::after {
+  display: none !important;
+}
+
+/* 勤務時間入力 */
+.modal-row.time-inputs {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1rem !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-top: 2rem !important;
+}
+
+.modal-row.time-inputs lightning-input {
+  flex: 1 !important;
+  min-width: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+.modal-row.time-inputs lightning-input .slds-form-element {
+  margin-bottom: 1rem !important;
+}
+
+/* モーダルフッター */
+.modal-footer-button-row {
+  display: flex !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  margin-top: 2rem !important;
+  justify-content: space-between !important;
+  align-items: stretch !important;
+  height: 48px !important;
+  border-radius: 0.5rem !important;
+}
+
+.cancel-button {
+  flex: 0 0 40% !important;
+  min-width: 100px !important;
+  box-sizing: border-box !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  border-radius: 0.5rem !important;
+  
+}
+
+.search-button {
+  flex: 1 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  border-radius: 0.5rem !important;
+}
+
+
+
+/* SLDSのブランドボタン（検索ボタン）の色を上書き */
+.search-button.slds-button.slds-button_brand {
+  background-color: #2463EB !important; /* 緑色に変更 */
+  border-color: #2463EB !important;
+  color: #ffffff !important;
+}
+
+.search-button.slds-button.slds-button_brand:hover {
+  background-color: #005fcc !important; /* ホバー時の濃い緑 */
+  border-color: #005fcc !important;
+}
+
+/* SLDSのニュートラルボタン（キャンセルボタン）も変更したい場合 */
+.cancel-button.slds-button.slds-button_neutral {
+  background-color: #f8f9fa !important;
+  border-color: #dee2e6 !important;
+  color: #6c757d !important;
 }
 
 
 
 
+/* シンプルなローディング表示 */
+.search-loading-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 3rem 1rem !important;
+  min-height: 150px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 8px !important;
+  margin: 1rem 0 !important;
+  border: 1px solid #e0e0e0 !important;
+}
 
+.loading-text-simple {
+  font-size: 1.1rem !important;
+  color: #666 !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
 
+/* ローディング中のボタンスタイル */
+.slds-search-button1.slds-button[disabled] {
+  background-color: #94a3b8 !important;
+  border-color: #94a3b8 !important;
+  cursor: not-allowed !important;
+  opacity: 0.8 !important;
+}
+
+.search-button.slds-button.slds-button_brand[disabled] {
+  background-color: #94a3b8 !important;
+  border-color: #94a3b8 !important;
+  cursor: not-allowed !important;
+  opacity: 0.8 !important;
+}

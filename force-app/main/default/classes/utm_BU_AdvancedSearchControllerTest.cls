@@ -67,7 +67,7 @@ public class utm_BU_AdvancedSearchControllerTest {
         insert jobOffer;
 
         JobOffer_BU__c job = new JobOffer_BU__c(
-            Name = 'コンサルタント求人',
+            Name = 'テスト求人',
             joboffer__c = jobOffer.Id
         );
         insert job;

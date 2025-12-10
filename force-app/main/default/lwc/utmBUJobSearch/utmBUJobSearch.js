@@ -18,6 +18,7 @@ export default class UtmBUJobSearch extends LightningElement {
   @track currentPage = 1;
   @track pageSize = 25;
   @track hasSearched = false;
+  @track isLoading = false; // ローディング状態
 
   //ページネーション
   get paginatedResults() {
@@ -47,13 +48,52 @@ export default class UtmBUJobSearch extends LightningElement {
   }
 
   connectedCallback() {
-    const path = window.location.pathname;
-    const match = path.match(/\/global-search\/([^\/]+)/);
-    if (match) {
-      const keywordFromPath = decodeURIComponent(match[1]);
-      this.keyword = keywordFromPath;
-      this.handleSearch();
+    // URLパラメータの処理
+    const params = new URLSearchParams(window.location.search);
+  
+    const keywordParam = params.get('keyword');
+    const minWageParam = params.get('minWage');
+    const startTimeParam = params.get('startTime');
+    const endTimeParam = params.get('endTime');
+    const holidays = params.get('holidays');
+    const workStyles = params.get('workStyles');
+    const employmentTypes = params.get('employmentTypes');
+    const experienceParam = params.get('experience');
+  
+    this.keyword = keywordParam ? decodeURIComponent(keywordParam) : '';
+    this.minWage = minWageParam ? parseInt(minWageParam, 10) : 900;
+    this.startTime = startTimeParam || '';
+    this.endTime = endTimeParam || '';
+    this.selectedExperience = experienceParam === 'true';
+  
+    if (holidays) {
+      this.selectedHolidays = decodeURIComponent(holidays).split(',');
     }
+    if (workStyles) {
+      this.selectedWorkStyles = decodeURIComponent(workStyles).split(',');
+    }
+    if (employmentTypes) {
+      this.selectedEmploymentTypes = decodeURIComponent(employmentTypes).split(',');
+    }
+  
+    const hasAnyCondition =
+      this.keyword || holidays || workStyles || employmentTypes ||
+      this.minWage > 1000 || this.startTime || this.endTime ||
+      this.selectedExperience;
+  
+    if (hasAnyCondition) {
+      this.updateSummaryText();
+      this.handleSearch();
+    } else {
+      // 初期化時にクラスを確実に設定
+      setTimeout(() => {
+        const button = this.template.querySelector('.keyword-like-button');
+        if (button) {
+          button.classList.remove('has-conditions');
+        }
+      }, 100);
+    }
+
     document.addEventListener('touchstart', this.preventTouchScrollOnSlider, { passive: false });
   }
 
@@ -73,7 +113,6 @@ export default class UtmBUJobSearch extends LightningElement {
   
   closeFilters() {
     this.showFilters = false;
-    // 🔥 hasSearched = false を削除（検索結果を保持）
   }
 
   handleSearchAndClose() {
@@ -140,18 +179,17 @@ export default class UtmBUJobSearch extends LightningElement {
     this.hasSearched = false;
   }
 
-  // 🔥 体験応募チェックボックスハンドラー修正
+  // 体験応募チェックボックスハンドラー
   handleExperienceCheckboxChange(e) {
     this.selectedExperience = e.target.checked;
     this.updateSummaryText();
     
-    // 🔥 検索条件がある場合のみ自動検索実行
     if (this.hasAnySearchCondition()) {
       this.handleSearch();
     }
   }
 
-  // 🔥 検索条件があるかチェックするヘルパーメソッド
+  // 検索条件があるかチェックするヘルパーメソッド
   hasAnySearchCondition() {
     return this.keyword ||
            this.selectedHolidays.length > 0 ||
@@ -202,9 +240,11 @@ export default class UtmBUJobSearch extends LightningElement {
     return this.minWage.toLocaleString();
   }
 
+  // handleSearch メソッド - ローディング機能付き
   handleSearch() {
     this.hasSearched = true;
-  
+    this.isLoading = true; // ローディング開始
+
     utm_BU_searchJobs({
       keyword: this.keyword,
       jobTypes: [],
@@ -223,7 +263,7 @@ export default class UtmBUJobSearch extends LightningElement {
         const salaryMax = job.joboffer__r?.Field1591__c;
         const start = job.joboffer__r?.Field1660__c;
         const end = job.joboffer__r?.Field1663__c;
-  
+
         const formatTime = (raw) => {
           const ms = Number(raw);
           if (isNaN(ms)) return '';
@@ -233,12 +273,12 @@ export default class UtmBUJobSearch extends LightningElement {
           return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
         };
 
-        // 🔥 休日情報の処理を修正
+        // 休日情報の処理
         const holidays = job.joboffer__r?.Field1908__c
           ? job.joboffer__r.Field1908__c.replace(/;/g, '')
           : '';
 
-        // 🔥 時間表示のフォーマット処理
+        // 時間表示のフォーマット処理
         const formatTimeDisplay = (startTime, endTime, holidayInfo) => {
           const formattedStart = formatTime(startTime);
           const formattedEnd = formatTime(endTime);
@@ -268,7 +308,31 @@ export default class UtmBUJobSearch extends LightningElement {
           // 時間情報がない場合
           return '';
         };
-  
+
+        // 給与表示の修正：上限が空白の場合の処理
+        const formatSalaryDisplay = (minSalary, maxSalary, salaryType) => {
+          const formattedMin = minSalary ? Number(minSalary).toLocaleString() : '';
+          const formattedMax = maxSalary ? Number(maxSalary).toLocaleString() : '';
+          
+          // 下限のみがある場合
+          if (formattedMin && !formattedMax) {
+            return `${salaryType} ${formattedMin}円`;
+          }
+          
+          // 上限と下限両方がある場合
+          if (formattedMin && formattedMax) {
+            return `${salaryType} ${formattedMin}円 〜 ${formattedMax}円`;
+          }
+          
+          // 上限のみがある場合（稀なケース）
+          if (!formattedMin && formattedMax) {
+            return `${salaryType} 〜 ${formattedMax}円`;
+          }
+          
+          // どちらもない場合
+          return '';
+        };
+
         return {
           ...job,
           formattedSalaryMin: salaryMin ? Number(salaryMin).toLocaleString() : '',
@@ -276,15 +340,25 @@ export default class UtmBUJobSearch extends LightningElement {
           formattedStartTime: formatTime(start),
           formattedEndTime: formatTime(end),
           formattedHoliday: holidays,
-          formattedTimeDisplay: formatTimeDisplay(start, end, holidays) // 🔥 新しい時間表示フィールド
+          formattedTimeDisplay: formatTimeDisplay(start, end, holidays),
+          formattedSalaryDisplay: formatSalaryDisplay(
+            salaryMin, 
+            salaryMax, 
+            job.joboffer__r?.Field1585__c || ''
+          ),
+          // 派遣社員かどうかの判定フラグ
+          isDispatchWorker: job.EmploymentStatus__c === '派遣社員'
         };
       });
-  
+
       this.sortResults();
       this.isNoResults = this.results.length === 0;
     })
     .catch(error => {
       console.error('検索エラー:', error);
+    })
+    .finally(() => {
+      this.isLoading = false; // ローディング終了
     });
   }
 
@@ -362,6 +436,7 @@ export default class UtmBUJobSearch extends LightningElement {
     this.summaryText = parts.join('、');
   }
 
+  // チェックボックス状態のgetterメソッド群
   get isChecked正社員() { return this.selectedWorkStyles.includes('正社員'); }
   get isChecked軽作業() { return this.selectedWorkStyles.includes('軽作業'); }
   get isChecked未経験OK() { return this.selectedWorkStyles.includes('未経験OK'); }
@@ -374,7 +449,7 @@ export default class UtmBUJobSearch extends LightningElement {
 
   get isCheckedExperience() { return this.selectedExperience; }
 
-  // 🔥 HTMLのdata属性用のgetter
+  // HTMLのdata属性用のgetter
   get hasConditionsAttribute() {
     return (this.selectedWorkStyles.length > 0 ||
             this.selectedHolidays.length > 0 ||
@@ -387,57 +462,7 @@ export default class UtmBUJobSearch extends LightningElement {
   handleJobDetailNavigation(event) {
     const recordId = event.currentTarget.dataset.recordId;
     if (recordId) {
-      window.open(`/job-offer/${recordId}`, '_blank');
+      window.open(`/joboffer-bu/${recordId}`, '_blank');
     }
-  }
-
-  //URLに条件設定//
-  connectedCallback() {
-    const params = new URLSearchParams(window.location.search);
-  
-    const keywordParam = params.get('keyword');
-    const minWageParam = params.get('minWage');
-    const startTimeParam = params.get('startTime');
-    const endTimeParam = params.get('endTime');
-    const holidays = params.get('holidays');
-    const workStyles = params.get('workStyles');
-    const employmentTypes = params.get('employmentTypes');
-    const experienceParam = params.get('experience'); // 🔥 体験応募パラメータ取得
-  
-    this.keyword = keywordParam ? decodeURIComponent(keywordParam) : '';
-    this.minWage = minWageParam ? parseInt(minWageParam, 10) : 900;
-    this.startTime = startTimeParam || '';
-    this.endTime = endTimeParam || '';
-    this.selectedExperience = experienceParam === 'true'; // 🔥 体験応募の設定
-  
-    if (holidays) {
-      this.selectedHolidays = decodeURIComponent(holidays).split(',');
-    }
-    if (workStyles) {
-      this.selectedWorkStyles = decodeURIComponent(workStyles).split(',');
-    }
-    if (employmentTypes) {
-      this.selectedEmploymentTypes = decodeURIComponent(employmentTypes).split(',');
-    }
-  
-    const hasAnyCondition =
-      this.keyword || holidays || workStyles || employmentTypes ||
-      this.minWage > 1000 || this.startTime || this.endTime ||
-      this.selectedExperience; // 🔥 体験応募も条件に含める
-  
-    if (hasAnyCondition) {
-      this.updateSummaryText();
-      this.handleSearch();
-    } else {
-      // 初期化時にクラスを確実に設定
-      setTimeout(() => {
-        const button = this.template.querySelector('.keyword-like-button');
-        if (button) {
-          button.classList.remove('has-conditions');
-        }
-      }, 100);
-    }
-  
-    document.addEventListener('touchstart', this.preventTouchScrollOnSlider, { passive: false });
   }
 }
